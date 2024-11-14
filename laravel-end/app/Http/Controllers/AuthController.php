@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\JWTGuard;
 
 class AuthController extends Controller
@@ -15,23 +20,99 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login','register']]);
     }
 
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'status' => 'success',
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'user' => auth()->user()
+        ]);
+    }
     /**
      * Get a JWT via given credentials.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
-        // dd($credentials);
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized User'], 401);
+        $credentials = $request->only(['email', 'password']);
+        
+        // Add validation for email and password.
+        $validator = Validator::make($credentials, [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors(),
+            ], 422);
+        }
+    
+        Log::info('Login attempt:', ['email' => $credentials['email']]);
+    
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                Log::warning('Login failed for user:', ['email' => $credentials['email']]);
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Invalid credentials',
+                ], 401);
+            }
+            Log::info('Login successful:', ['email' => $credentials['email']]);
+            
+            return $this->respondWithToken($token);
+    
+        } catch (\Exception $e) {
+            //log the error msg.
+            Log::error('Login error:', ['message' => $e->getMessage()]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Authentication system error',
+            ], 500);
+        }
+    }
+    
+    public function register(Request $request){
+
+        $credentials = $request->only(['name','email','password']);
+
+        $validator = Validator::make($credentials , [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'password' => 'required|string|min:6'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors(),
+            ], 422);
         }
 
-        return $this->respondWithToken($token);
+        Log::info('SignUp Attempt :' , ['email' => $credentials['email']]);
+
+        try{
+            $credentials['password'] = bcrypt($credentials['password']);
+            User::create($credentials);
+
+            return response()->json([
+                'message' => 'successful',
+                'status' => 202,
+            ],202);
+
+        }catch(Exception $e){
+            Log::error('SignUp error:', ['message' => $e->getMessage()]);
+            return response()->json([
+                'status' => 'error',
+                'message' => 'SignUp error',
+            ], 500);
+        }
     }
 
     /**
@@ -66,19 +147,4 @@ class AuthController extends Controller
         return $this->respondWithToken(JWTGuard::auth()->refresh());
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'user' => auth()->user()
-        ]);
-    }
 }

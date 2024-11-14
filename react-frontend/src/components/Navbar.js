@@ -17,7 +17,7 @@ function Navbar(){
         nav_style = {
             backgroundColor: '#113448'
         };
-        nav_class_properties = 'navbar navbar-expand-md navbar-dark navbar-custom fixed-top top-nav-collapse';
+        nav_class_properties = 'navbar navbar-expand-md navbar-dark navbar-custom top-nav-collapse';
     }
 
 
