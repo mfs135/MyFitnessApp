@@ -1,13 +1,32 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import Logo from '../assets/logo192.png';
+import { useLocation } from "react-router-dom";
 
 function Navbar(){
+
+    const location = useLocation();
+    let nav_style = {};
+    let nav_class_properties = '';
+
+    if(location.pathname === '/'){
+        nav_style = {};
+        nav_class_properties = 'navbar navbar-expand-md navbar-dark navbar-custom fixed-top';
+    }
+    else{
+        nav_style = {
+            backgroundColor: '#113448'
+        };
+        nav_class_properties = 'navbar navbar-expand-md navbar-dark navbar-custom fixed-top top-nav-collapse';
+    }
+
+
     return (
         // <!-- Navbar -->
-        <nav className="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+        <nav className={nav_class_properties} 
+        style={nav_style}>
             {/* <!-- Image Logo --> */}
-            <Link className="navbar-brand page-scroll" href="#header">
+            <Link className="navbar-brand page-scroll" to="/">
                 <img src={Logo} alt="Logo" height="40" />
             </Link>
             {/* <!-- Mobile Menu Toggle Button --> */}
