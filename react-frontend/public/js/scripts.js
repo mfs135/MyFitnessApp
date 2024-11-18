@@ -1,13 +1,16 @@
-$(document).on('click', 'a', function (event) {
-    const href = $(this).attr('href');
-    if (href === '#' || href === '/') {
-      event.preventDefault();
-    }
-  });
+// import jQuery from "jquery"
+
 
 (function($) {
-    "use strict"; 
+    // "use strict"; 
 	
+    $(document).on('click', 'a', function (event) {
+        const href = $(this).attr('href');
+        if (href === '#' || href === '/') {
+          event.preventDefault();
+        }
+      });
+
 	/* Preloader */
 	$(window).on('load', function() {
 		var preloaderFadeOutTime = 500;
@@ -24,12 +27,13 @@ $(document).on('click', 'a', function (event) {
 	/* Navbar Scripts */
 	// jQuery to collapse the navbar on scroll
     $(window).on('scroll load', function() {
-		if ($(".navbar").offset().top > 20) {
-			$(".fixed-top").addClass("top-nav-collapse");
-		} else {
-			$(".fixed-top").removeClass("top-nav-collapse");
-		}
-    });
+        var $navbar = $(".navbar");
+        if ($navbar.length > 0 && $navbar.offset().top > 20) {
+          $(".fixed-top").addClass("top-nav-collapse");
+        } else {
+          $(".fixed-top").removeClass("top-nav-collapse");
+        }
+      });
 
 	// jQuery for page scrolling feature - requires jQuery Easing plugin
 	$(function() {
@@ -63,30 +67,7 @@ $(document).on('click', 'a', function (event) {
     });
     
 
-    /* Card Slider - Swiper */
-	var cardSlider = new Swiper('.card-slider', {
-		autoplay: {
-            delay: 4000,
-            disableOnInteraction: false
-		},
-        loop: true,
-        navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev'
-		},
-		slidesPerView: 3,
-		spaceBetween: 20,
-        breakpoints: {
-            // when window is <= 992px
-            992: {
-                slidesPerView: 2
-            },
-            // when window is <= 768px
-            768: {
-                slidesPerView: 1
-            } 
-        }
-    });
+
 
     
     /* Lightbox - Magnific Popup */
@@ -131,7 +112,7 @@ $(document).on('click', 'a', function (event) {
 	$(window).scroll(function() {
 		if ($('#counter').length) { // checking if CountTo section exists in the page, if not it will not run the script and avoid errors	
 			var oTop = $('#counter').offset().top - window.innerHeight;
-			if (a == 0 && $(window).scrollTop() > oTop) {
+			if (a === 0 && $(window).scrollTop() > oTop) {
 			$('.counter-value').each(function() {
 				var $this = $(this),
 				countTo = $this.attr('data-count');
@@ -161,70 +142,13 @@ $(document).on('click', 'a', function (event) {
     /* Move Form Fields Label When User Types */
     // for input and textarea fields
     $("input, textarea").keyup(function(){
-		if ($(this).val() != '') {
+		if ($(this).val() !== '') {
 			$(this).addClass('notEmpty');
 		} else {
 			$(this).removeClass('notEmpty');
 		}
     });
 
-
-    /* Call Me Form */
-    $("#callMeForm").validator().on("submit", function(event) {
-    	if (event.isDefaultPrevented()) {
-            // handle the invalid form...
-            lformError();
-            lsubmitMSG(false, "Please fill all fields!");
-        } else {
-            // everything looks good!
-            event.preventDefault();
-            lsubmitForm();
-        }
-    });
-
-    function lsubmitForm() {
-        // initiate variables with form content
-		var name = $("#lname").val();
-		var phone = $("#lphone").val();
-		var email = $("#lemail").val();
-		var select = $("#lselect").val();
-        var terms = $("#lterms").val();
-        
-        $.ajax({
-            type: "POST",
-            url: "php/callmeform-process.php",
-            data: "name=" + name + "&phone=" + phone + "&email=" + email + "&select=" + select + "&terms=" + terms, 
-            success: function(text) {
-                if (text == "success") {
-                    lformSuccess();
-                } else {
-                    lformError();
-                    lsubmitMSG(false, text);
-                }
-            }
-        });
-	}
-
-    function lformSuccess() {
-        $("#callMeForm")[0].reset();
-        lsubmitMSG(true, "Request Submitted!");
-        $("input").removeClass('notEmpty'); // resets the field label after submission
-    }
-
-    function lformError() {
-        $("#callMeForm").removeClass().addClass('shake animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-            $(this).removeClass();
-        });
-	}
-
-    function lsubmitMSG(valid, msg) {
-        if (valid) {
-            var msgClasses = "h3 text-center tada animated";
-        } else {
-            var msgClasses = "h3 text-center";
-        }
-        $("#lmsgSubmit").removeClass().addClass(msgClasses).text(msg);
-    }
 
 
     /* Contact Form */
@@ -251,7 +175,7 @@ $(document).on('click', 'a', function (event) {
             url: "php/contactform-process.php",
             data: "name=" + name + "&email=" + email + "&message=" + message + "&terms=" + terms, 
             success: function(text) {
-                if (text == "success") {
+                if (text === "success") {
                     cformSuccess();
                 } else {
                     cformError();
@@ -275,10 +199,11 @@ $(document).on('click', 'a', function (event) {
 	}
 
     function csubmitMSG(valid, msg) {
+        var msgClasses = "";
         if (valid) {
-            var msgClasses = "h3 text-center tada animated";
+            msgClasses = "h3 text-center tada animated";
         } else {
-            var msgClasses = "h3 text-center";
+            msgClasses = "h3 text-center";
         }
         $("#cmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }
@@ -309,7 +234,7 @@ $(document).on('click', 'a', function (event) {
             url: "php/privacyform-process.php",
             data: "name=" + name + "&email=" + email + "&select=" + select + "&terms=" + terms, 
             success: function(text) {
-                if (text == "success") {
+                if (text === "success") {
                     pformSuccess();
                 } else {
                     pformError();
@@ -332,10 +257,11 @@ $(document).on('click', 'a', function (event) {
 	}
 
     function psubmitMSG(valid, msg) {
+        var msgClasses = "";
         if (valid) {
-            var msgClasses = "h3 text-center tada animated";
+            msgClasses = "h3 text-center tada animated";
         } else {
-            var msgClasses = "h3 text-center";
+            msgClasses = "h3 text-center";
         }
         $("#pmsgSubmit").removeClass().addClass(msgClasses).text(msg);
     }

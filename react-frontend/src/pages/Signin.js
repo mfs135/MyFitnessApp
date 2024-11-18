@@ -40,6 +40,12 @@ function SignIn(){
             return;
         }
 
+        if(password.length < 6){
+            setError('Password Length should be 6 or more!');
+            setLoading(false);
+            return;
+        }
+
         const sanitized_email = sanitizeInput(email);
 
         try {

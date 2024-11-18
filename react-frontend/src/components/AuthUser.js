@@ -1,14 +1,17 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function AuthUser() {
 
+    const navigate = useNavigate();
+
     const gettoken = () => {
-        return localStorage.getItem('jwt_token');
+        return sessionStorage.getItem('jwt_token');
     }
 
     const getuser = () => {
-        return localStorage.getItem('user');
+        return sessionStorage.getItem('user');
     }
 
     const [token,settoken] = useState(gettoken());
@@ -16,11 +19,16 @@ function AuthUser() {
 
 
     const savetoken = (user,token) => {
-        localStorage.setItem('jwt_token',token);
-        localStorage.setItem('user',user);
+        sessionStorage.setItem('jwt_token',token);
+        sessionStorage.setItem('user',user);
 
         settoken(token);
         setuser(user);
+    }
+
+    const logout = () => {
+        sessionStorage.clear();
+        navigate('/Signin');
     }
 
     const http = axios.create({
@@ -45,7 +53,7 @@ function AuthUser() {
     // Add request interceptor to handle CSRF token if needed
     http.interceptors.request.use(
         (config) => {
-            const token = localStorage.getItem('jwt_token');
+            const token = sessionStorage.getItem('jwt_token');
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`;
             }
@@ -62,7 +70,8 @@ function AuthUser() {
         getuser,
         user,
         token,
-        http
+        http,
+        logout
     };
 }
 
