@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function ProgressBar({ProgressName,ProgressVal,Progresslocation = ''}){
 
@@ -6,6 +6,8 @@ function ProgressBar({ProgressName,ProgressVal,Progresslocation = ''}){
     const ProgressValue = ProgressVal;
     const location = Progresslocation;
 
+    const [width,setwidth] = useState(0);
+    
     const renderdetails = () => {
         if (location !== 'dashboard'){
             return (
@@ -15,12 +17,15 @@ function ProgressBar({ProgressName,ProgressVal,Progresslocation = ''}){
                 </div>
             )
         }
-        else{
-            return null;
-        }
+        return null;
     };
 
-
+    useEffect(() => {
+        //As component mount start animation.
+        setTimeout(() => {
+          setwidth(ProgressValue);
+        }, 100);
+      }, [ProgressValue]);
     return (
         <>
             <div className="mb-3">
@@ -33,8 +38,8 @@ function ProgressBar({ProgressName,ProgressVal,Progresslocation = ''}){
                 <div 
                     className="progress-bar bg-primary" 
                     role="progressbar" 
-                    style={{ width: `${ProgressValue}%` }}
-                    aria-valuenow={ProgressValue} 
+                    style={{ width: `${width}%` }}
+                    aria-valuenow={width} 
                     aria-valuemin="0" 
                     aria-valuemax="100"
                 >
