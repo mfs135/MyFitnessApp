@@ -5,8 +5,9 @@ import Form from "./Form.js";
 
 function TrackGoalsContent(){
 
+    //Sample Data.
     const goals = [
-        {title: "Push Ups" , Progress: "10"},
+        {title: "Push Ups" , Progress: "120"},
         {title: "Squats" , Progress: "50"},
         {title: "Pull Ups" , Progress: "40"}
     ];
