@@ -99,5 +99,36 @@ class GoalController extends Controller
     
         return response()->json(['goal' => $goal], 201);
     }
+    public function update(Request $request, $id)
+    {
+        // Validate only the progress input
+        $validated = $request->validate([
+            'progress' => 'required|integer|min:0',
+        ]);
+    
+        // Find the goal by ID and ensure it belongs to the authenticated user
+        $goal = Goal::where('user_id', $request->user()->id)->findOrFail($id);
+    
+        // Update the progress by adding the new progress
+        $goal->progress += $validated['progress'];
+        $goal->save();
+    
+        return response()->json([
+            'goal' => $goal,
+            'message' => 'Progress updated successfully',
+        ], 200);
+    }
+    
+
+    public function destroy(Request $request, $id)
+    {
+        $goal = Goal::where('user_id', $request->user()->id)->findOrFail($id);
+
+        $goal->delete();
+
+        return response()->json(['message' => 'Goal deleted successfully'], 200);
+    }
+
+
     
 }

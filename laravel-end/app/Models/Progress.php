@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Progress extends Model
 {
-    use HasFactory;
+use HasFactory;
 
     protected $fillable = [
         'goal_id', 'progress_duration'
@@ -17,5 +17,6 @@ class Progress extends Model
     {
         return $this->belongsTo(Goal::class);
     }
+
 }
 

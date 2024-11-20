@@ -31,4 +31,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('goals', [GoalController::class, 'store']);
     
     Route::get('all-goal-data', [GoalController::class, 'getAllGoalData'])->name('all-goal-data');
+    Route::put('goals/{id}', [GoalController::class, 'update']); // Update a goal
+    Route::delete('goals/{id}', [GoalController::class, 'destroy']); // Delete a goal
+
 });

@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function AuthUser() {
-
     const navigate = useNavigate();
 
     const gettoken = () => {
@@ -14,14 +13,12 @@ function AuthUser() {
         return sessionStorage.getItem('user');
     }
 
-    const [token,settoken] = useState(gettoken());
-    const [user,setuser] = useState(gettoken());
+    const [token, settoken] = useState(gettoken());
+    const [user, setuser] = useState(getuser());
 
-
-    const savetoken = (user,token) => {
-        sessionStorage.setItem('jwt_token',token);
-        sessionStorage.setItem('user',user);
-
+    const savetoken = (user, token) => {
+        sessionStorage.setItem('jwt_token', token);
+        sessionStorage.setItem('user', user);
         settoken(token);
         setuser(user);
     }
@@ -31,35 +28,58 @@ function AuthUser() {
         navigate('/Signin');
     }
 
+    // Create axios instance with updated CORS configuration
     const http = axios.create({
         baseURL: 'http://localhost:8000/api',
         withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        }
+            'X-Requested-With': 'XMLHttpRequest',
+        },
     });
 
-    // Add response interceptor to handle errors
-    http.interceptors.response.use(
-        (response) => response,
+    // Request interceptor
+    http.interceptors.request.use(
+        (config) => {
+            const token = gettoken();
+            if (token) {
+                config.headers['Authorization'] = `Bearer ${token}`;
+            }
+            // Ensure CORS headers are properly set
+            config.headers['Access-Control-Allow-Credentials'] = true;
+            return config;
+        },
         (error) => {
-            console.error('API Error:', error.response);
             return Promise.reject(error);
         }
     );
 
-    // Add request interceptor to handle CSRF token if needed
-    http.interceptors.request.use(
-        (config) => {
-            const token = sessionStorage.getItem('jwt_token');
-            if (token) {
-                config.headers['Authorization'] = `Bearer ${token}`;
-            }
-            return config;
-        },
+    // Response interceptor with better error handling
+    http.interceptors.response.use(
+        (response) => response,
         (error) => {
+            if (error.response) {
+                // Handle specific error cases
+                switch (error.response.status) {
+                    case 401: // Unauthorized
+                        logout();
+                        break;
+                    case 403: // Forbidden
+                        console.error('Access denied');
+                        break;
+                    case 500: // Server error
+                        console.error('Server error occurred');
+                        break;
+                    default:
+                        console.error('API Error:', error.response.data);
+                }
+            } else if (error.request) {
+                // Network error
+                console.error('Network error:', error.request);
+            } else {
+                console.error('Error:', error.message);
+            }
             return Promise.reject(error);
         }
     );

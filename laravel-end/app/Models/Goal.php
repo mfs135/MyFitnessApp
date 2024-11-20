@@ -21,6 +21,7 @@ class Goal extends Model
     public function progress()
     {
         return $this->hasMany(Progress::class);
+        
     }
 }
 
