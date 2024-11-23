@@ -75,7 +75,7 @@ body, p {
 
 
 h1 {
-	color: #484a46;
+	color: #ffffff;
 	font: 700 2.5rem/3rem "Montserrat", sans-serif;
 }
 
@@ -1761,7 +1761,7 @@ a.back-to-top {
 	width: 2.625rem;
 	height: 2.625rem;
 	border-radius: 1.875rem;
-	background: #14bf98 url("../images/up-arrow.png") no-repeat center 47%;
+	background: #000 url("../images/up-arrow.png") no-repeat center 47%;
 	background-size: 1.125rem 1.125rem;
 	text-indent: -9999px;
 }
@@ -1777,7 +1777,7 @@ a:hover.back-to-top {
 .ex-header {
 	padding-top: 8rem;
 	padding-bottom: 5rem;
-	background-color: #153e52;
+	background-color: rgb(19 80 115);
 	text-align: center;
 }
 
@@ -1879,7 +1879,7 @@ a:hover.back-to-top {
 	.navbar-custom.top-nav-collapse {
         padding: 0.375rem 1.5rem 0.375rem 2rem;
 		box-shadow: 0 0.0625rem 0.375rem 0 rgba(0, 0, 0, 0.1);
-		background-color: #113448;
+		background-color: rgb(19, 80, 115);
 	}
 
 	.navbar-custom.top-nav-collapse .navbar-brand.logo-text {

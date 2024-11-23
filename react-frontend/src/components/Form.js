@@ -37,7 +37,7 @@ function Form({ type, onSubmit, goal, modalId }) {
                 return;
             }
             onSubmit({
-                id: goal.id, // Assuming the goal object has an `id`
+                id: goal.id, 
                 title: goalName,
                 target_duration: parseInt(duration, 10),
                 progress: parseInt(progress, 10),
@@ -157,6 +157,7 @@ function Form({ type, onSubmit, goal, modalId }) {
                                                 className="form-control"
                                                 value={goalName}
                                                 onChange={(e) => setGoalName(e.target.value)}
+                                                readOnly={type === "EditGoal"}
                                             />
                                         </div>
                                         <div className="mb-3">
@@ -168,6 +169,7 @@ function Form({ type, onSubmit, goal, modalId }) {
                                                 className="form-control"
                                                 value={duration}
                                                 onChange={(e) => setDuration(e.target.value)}
+                                                readOnly={type === "EditGoal"}
                                             />
                                         </div>
                                         <div className="mb-3">

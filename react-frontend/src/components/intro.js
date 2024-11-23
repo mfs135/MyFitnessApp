@@ -30,7 +30,9 @@ function intro(){
                 </div> 
             </div> 
         </div> 
+       
     </div> 
+    
     )
 }
 

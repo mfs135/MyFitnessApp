@@ -5,12 +5,14 @@ import Intro from '../components/intro.js';
 
 
 
+
 function Home(){
     return (
         <div>
             <Navbar />
             <Banner />
             <Intro />
+           
         </div>
     )
 }

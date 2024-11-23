@@ -1,82 +1,79 @@
 import React, { useState } from "react";
-import '../css/sidebar.css';
 import AuthUser from "./AuthUser.js";
+import '../css/sidebar.css';
+import { Home, Target, BarChart2, LogOut } from "lucide-react";
 
-function Sidebar({OnTabClick,OnMenuOpen}){
+function Sidebar({OnTabClick, OnMenuOpen}) {
     const [isOpen, setIsOpen] = useState(false);
-    const [activeTabClass,setactivetabClass] = useState('dashboard');
-    const {token,logout} = AuthUser();
+    const [activeTabClass, setActiveTabClass] = useState('dashboard');
+    const {token, logout} = AuthUser();
 
     const toggleSidebar = () => {
         OnMenuOpen(!isOpen);
         setIsOpen(!isOpen);
     };
 
-    const handleclick = (tab) => {
-        if (tab === 'logout'){
-            // Handle Logout
-            if (token !== undefined)
-                logout();
-        }
-        else{
-            setactivetabClass(tab);
+    const handleClick = (tab) => {
+        if (tab === 'logout') {
+            if (token !== undefined) logout();
+        } else {
+            setActiveTabClass(tab);
             OnTabClick(tab);
         }
     }
 
     return (
-        <div>
+        <div className="sidebar-wrapper">
             <button 
-                className="mobile-sidebar-toggle d-lg-none"
+                className="mobile-sidebar-toggle rounded-lg hover:bg-gray-700"
                 onClick={toggleSidebar}
             >
-                {isOpen ? "✕ Close" : "☰ Menu"}
+                {isOpen ? "✕" : "☰"}
             </button>
 
-            <nav 
-                id="sidebarMenu" 
-                className={`sidebar collapse d-lg-block bg-white ${isOpen ? 'show' : ''}`}
-            >
-                <div className="position-sticky">
-                    <div className="list-group list-group-flush mx-3 mt-4">
-                        <button 
-                            className={`list-group-item list-group-item-action py-2 ripple ${activeTabClass === 'dashboard' ? 'active' : ''}`}
-                            aria-current="true"
-                            onClick={() => handleclick('dashboard')}
-                        >
-                            <i className="fas fa-tachometer-alt fa-fw me-3"></i>
-                            <span>Main dashboard</span>
-                        </button>
-
-                        <button 
-                            className={`list-group-item list-group-item-action py-2 ripple ${activeTabClass === 'track_goals' ? 'active' : ''}`}
-                            onClick={() => handleclick('track_goals')}
-                        >
-                            <i className="fas fa-chart-area fa-fw me-3"></i>
-                            <span>Track Goals</span>
-                        </button>
-
-                        <button 
-                            className={`list-group-item list-group-item-action py-2 ripple ${activeTabClass === 'stats' ? 'active' : ''}`}
-                            onClick={() => handleclick('stats')}
-                        >
-                            <i className="fas fa-lock fa-fw me-3"></i>
-                            <span>Stats</span>
-                        </button>
-
-                        <button 
-                            className={`list-group-item list-group-item-action py-2 ripple ${activeTabClass === 'logout' ? 'active' : ''}`}
-                            onClick={() => handleclick('logout')}
-                        >
-                            <i className="fas fa-chart-line fa-fw me-3"></i>
-                            <span>Logout</span>
-                        </button>
-
-                    </div>
+            <aside className={`sidebar ${isOpen ? 'show' : ''}`}>
+                <div className="logo-section">
+                    <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                    FitLogix
+                    </h1>
                 </div>
-            </nav>
+
+                <nav className="menu-section">
+                    <button 
+                        className={`menu-item ${activeTabClass === 'dashboard' ? 'active' : ''}`}
+                        onClick={() => handleClick('dashboard')}
+                    >
+                        <Home className="h-5 w-5" />
+                        <span>Overview</span>
+                    </button>
+
+                    <button 
+                        className={`menu-item ${activeTabClass === 'track_goals' ? 'active' : ''}`}
+                        onClick={() => handleClick('track_goals')}
+                    >
+                        <Target className="h-5 w-5" />
+                        <span>Track Goals</span>
+                    </button>
+
+                    <button 
+                        className={`menu-item ${activeTabClass === 'stats' ? 'active' : ''}`}
+                        onClick={() => handleClick('stats')}
+                    >
+                        <BarChart2 className="h-5 w-5" />
+                        <span>Analytics</span>
+                    </button>
+
+                    <button 
+                        className={`menu-item ${activeTabClass === 'logout' ? 'active' : ''}`}
+                        onClick={() => handleClick('logout')}
+                    >
+                        <LogOut className="h-5 w-5" />
+                        <span>Logout</span>
+                    </button>
+                </nav>
+            </aside>
         </div>
-    )
+    );
 }
 
 export default Sidebar;

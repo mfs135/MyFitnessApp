@@ -1,17 +1,17 @@
 import React from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-const StatsGraph = ({ data,exerciseName }) => {
+// Helper function to generate a consistent color for each exercise
+const generateColor = (name) => {
+  const hash = name
+    .split('')
+    .reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0);
+  const hue = Math.abs(hash) % 360; // Ensure hue is between 0-359
+  return `hsl(${hue}, 70%, 50%)`; // Dynamic HSL color
+};
 
-    // Define colors for each exercise type
-    const exerciseColors = {
-        'Push Ups': '#4f46e5', // Indigo
-        'BenchPress': '#e11d48', // Rose
-        'Pull Ups': '#059669', // Emerald
-        // Add more exercise colors here as needed
-    };
-
-    const barColor = exerciseColors[exerciseName] || '#818cf8';
+const StatsGraph = ({ data, exerciseName }) => {
+  const barColor = generateColor(exerciseName); // Generate color based on exercise name
 
   return (
     <BarChart width={600} height={400} data={data}>

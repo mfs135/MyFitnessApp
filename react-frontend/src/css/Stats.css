@@ -1,0 +1,82 @@
+/* stats.css */
+
+/* Container responsiveness */
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Adjust chart height for mobile */
+    .recharts-responsive-container {
+        height: 300px !important;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Adjust chart height for tablets */
+    .recharts-responsive-container {
+        height: 350px !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Chart styling */
+.recharts-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.recharts-surface {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Make tooltips more readable on mobile */
+.recharts-tooltip-wrapper {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 8px;
+}
+
+.recharts-default-tooltip {
+    background-color: white !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 8px !important;
+}
+
+/* Improve text readability */
+.recharts-text {
+    font-size: 12px !important;
+}
+
+@media (max-width: 640px) {
+    .recharts-text {
+        font-size: 10px !important;
+    }
+}
+
+/* Smooth animations */
+.recharts-bar-rectangle {
+    transition: opacity 0.3s;
+}
+
+.recharts-bar-rectangle:hover {
+    opacity: 0.8;
+}
