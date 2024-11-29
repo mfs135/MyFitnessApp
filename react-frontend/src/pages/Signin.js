@@ -117,25 +117,25 @@ function SignIn(){
                                 <div data-mdb-input-init className="form-outline mb-4">
                                     <input
                                         type="email"
-                                        id="form1Example13"
+                                        id="emailInput"
                                         className="form-control form-control-lg"
                                         onChange={(e) => setEmail(e.target.value)}
                                         value={email}
                                         required
                                     />
-                                    <label className="form-label">Email address</label>
+                                    <label className="form-label" htmlFor="emailInput">Email address</label>
                                 </div>
 
                                 <div data-mdb-input-init className="form-outline mb-4">
                                     <input
                                         type="password"
-                                        id="form1Example23"
+                                        id="passwordInput"
                                         className="form-control form-control-lg"
                                         onChange={(e) => setPassword(e.target.value)}
                                         value={password}
                                         required
                                     />
-                                    <label className="form-label">Password</label>
+                                    <label className="form-label" htmlFor="passwordInput">Password</label>
                                 </div>
 
                                 <button 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { act, useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 import AuthUser from "../components/AuthUser";
 import { Clock, CheckCircle, Circle, ChevronRight, LucideAlarmClockCheck } from 'lucide-react';
@@ -30,7 +30,7 @@ function DashboardContent() {
 
     if (loading) {
         return (
-            <div className="loading-container">
+            <div className="loading-container" data-testid="loading-container">
                 <div className="loading-spinner"></div>
             </div>
         );

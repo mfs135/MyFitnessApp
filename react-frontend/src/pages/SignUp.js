@@ -131,12 +131,12 @@ function SignUp() {
                                                     <div data-mdb-input-init className="form-outline flex-fill mb-0">
                                                         <input
                                                             type="text"
-                                                            id="form3Example1c"
+                                                            id="nameInput"
                                                             className="form-control"
                                                             onChange={e => setname(e.target.value)}
                                                             required
                                                         />
-                                                        <label className="form-label">Your Name</label>
+                                                        <label className="form-label" htmlFor="nameInput">Your Name</label>
                                                     </div>
                                                 </div>
 
@@ -145,12 +145,12 @@ function SignUp() {
                                                     <div data-mdb-input-init className="form-outline flex-fill mb-0">
                                                         <input
                                                             type="email"
-                                                            id="form3Example3c"
+                                                            id="emailInput"
                                                             className="form-control"
                                                             onChange={e => setemail(e.target.value)}
                                                             required
                                                         />
-                                                        <label className="form-label">Your Email</label>
+                                                        <label className="form-label" htmlFor="emailInput">Your Email</label>
                                                     </div>
                                                 </div>
 
@@ -159,12 +159,12 @@ function SignUp() {
                                                     <div data-mdb-input-init className="form-outline flex-fill mb-0">
                                                         <input
                                                             type="password"
-                                                            id="form3Example4c"
+                                                            id="passwordInput"
                                                             className="form-control"
                                                             onChange={e => setPassword(e.target.value)}
                                                             required
                                                         />
-                                                        <label className="form-label">Password</label>
+                                                        <label className="form-label" htmlFor="passwordInput">Password</label>
                                                     </div>
                                                 </div>
 
@@ -173,12 +173,12 @@ function SignUp() {
                                                     <div data-mdb-input-init className="form-outline flex-fill mb-0">
                                                         <input
                                                             type="password"
-                                                            id="form3Example4cd"
+                                                            id="confirmInput"
                                                             className="form-control"
                                                             onChange={e => setconfirm(e.target.value)}
                                                             required
                                                         />
-                                                        <label className="form-label" >Repeat your password</label>
+                                                        <label className="form-label" htmlFor="confirmInput">Repeat your password</label>
                                                     </div>
                                                 </div>
 

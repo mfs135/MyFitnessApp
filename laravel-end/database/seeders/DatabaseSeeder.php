@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
       
         $this->call([
-            // GoalSeeder::class,
+            GoalSeeder::class,
             ProgressSeeder::class,
         ]);
     }
