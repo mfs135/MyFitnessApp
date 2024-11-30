@@ -1,4 +1,4 @@
-import React, { act, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 import AuthUser from "../components/AuthUser";
 import { Clock, CheckCircle, Circle, ChevronRight, LucideAlarmClockCheck } from 'lucide-react';
