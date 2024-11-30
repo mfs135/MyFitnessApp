@@ -28,7 +28,7 @@ function StatsContent() {
         fetchStats(); // Fetch stats on component mount
     }, []);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <div data-testid="loadingID">Loading...</div>;
 
     if (error) return <div className="alert alert-danger">{error}</div>;
 

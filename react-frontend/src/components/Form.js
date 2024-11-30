@@ -68,7 +68,7 @@ function Form({ type, onSubmit, goal, modalId }) {
                             <div className="modal-content">
                                 <div className="modal-header">
                                     <h5 className="modal-title" id="AddGoalLabel">
-                                        Add Goal
+                                        Add New Goal
                                     </h5>
                                     <button
                                         type="button"
@@ -80,23 +80,25 @@ function Form({ type, onSubmit, goal, modalId }) {
                                 <div className="modal-body">
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
-                                            <label className="col-form-label">
+                                            <label className="col-form-label" htmlFor="goalnameInput">
                                                 Goal Name
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                id="goalnameInput"
                                                 value={goalName}
                                                 onChange={(e) => setGoalName(e.target.value)}
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label className="col-form-label">
+                                            <label className="col-form-label" htmlFor="durationInput">
                                                 Duration
                                             </label>
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                id="durationInput"
                                                 value={duration}
                                                 onChange={(e) => setDuration(e.target.value)}
                                             />
@@ -136,7 +138,7 @@ function Form({ type, onSubmit, goal, modalId }) {
                         <div className="modal-dialog">
                             <div className="modal-content">
                                 <div className="modal-header">
-                                    <h5 className="modal-title" id="EditGoalLabel">
+                                    <h5 className="modal-title" id="EditGoalLabel" data-testid="editgoalID">
                                         Edit Goal
                                     </h5>
                                     <button
@@ -149,36 +151,39 @@ function Form({ type, onSubmit, goal, modalId }) {
                                 <div className="modal-body">
                                     <form onSubmit={handleSubmit}>
                                         <div className="mb-3">
-                                            <label className="col-form-label">
+                                            <label className="col-form-label" htmlFor="goalNameInput">
                                                 Goal Name
                                             </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
+                                                id="goalNameInput"
                                                 value={goalName}
                                                 onChange={(e) => setGoalName(e.target.value)}
                                                 readOnly={type === "EditGoal"}
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label className="col-form-label">
+                                            <label className="col-form-label" htmlFor="targetdurationInput">
                                                 Target Duration
                                             </label>
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                id="targetdurationInput"
                                                 value={duration}
                                                 onChange={(e) => setDuration(e.target.value)}
                                                 readOnly={type === "EditGoal"}
                                             />
                                         </div>
                                         <div className="mb-3">
-                                            <label className="col-form-label">
+                                            <label className="col-form-label" htmlFor="progressInput">
                                                 Progress
                                             </label>
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                id="progressInput"
                                                 value={progress}
                                                 onChange={(e) => setProgress(e.target.value)}
                                             />

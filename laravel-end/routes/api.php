@@ -29,14 +29,14 @@ Route::group(['middleware' => 'api'], function () {
     Route::post('refresh', [AuthController::class, 'refresh'])->name('refresh');
     Route::post('me', [AuthController::class, 'me'])->name('me');
 
-    Route::get('goals', [GoalController::class, 'index']);
-    Route::post('goals', [GoalController::class, 'store']);
+    Route::get('goals', [GoalController::class, 'index'])->name('all-goals-data');
+    Route::post('goals', [GoalController::class, 'store'])->name('create_goal');
     
     Route::get('all-goal-data', [GoalController::class, 'getAllGoalData'])->name('all-goal-data');
     
     Route::get('/stats', [StatsController::class, 'getStats']);
 
-    Route::put('goals/{id}', [GoalController::class, 'update']); // Update a goal
-    Route::delete('goals/{id}', [GoalController::class, 'destroy']); // Delete a goal
+    Route::put('/goals/{id}', [GoalController::class, 'update'])->name('update_goals'); // Update a goal
+    Route::delete('goals/{id}', [GoalController::class, 'destroy'])->name('delete_goal'); // Delete a goal
 
 });
