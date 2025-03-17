@@ -2,8 +2,9 @@
 
 Welcome to **MyFitnessApp**, a web application designed to help users track their fitness goals, manage workouts, and monitor progress. This project was developed as part of a portfolio assessment, showcasing skills in full-stack development, client-side frameworks, server-side APIs, and automated testing.
 
-<img align="center" height="400" width="800" src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=pexels-victorfreitas-841130.jpg&fm=jpg"/>
-
+<div align="center">
+<img  height="400" width="800" src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=pexels-victorfreitas-841130.jpg&fm=jpg"/>
+</div>
 
 ---
 
