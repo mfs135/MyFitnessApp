@@ -49,3 +49,24 @@ MyFitnessApp is a web application designed to help users track their fitness goa
 - **Postman**: For testing API endpoints.
 - **Google Lighthouse**: For performance analysis and improvements.
 
+## Setup Instructions
+
+### Prerequisites
+- PHP >= 8.0
+- Composer
+- Node.js >= 16.x
+- MySQL
+
+### Steps to Run the Project
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/mfs135/MyFitnessApp.git
+   cd MyFitnessApp
+
+2. Install Backend Dependencies
+   ```bash
+   composer install
+
+3. Set Up the Database
+
